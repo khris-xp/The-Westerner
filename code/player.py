@@ -30,7 +30,7 @@ class Player(pygame.sprite.Sprite):
     def get_status(self):
         if self.direction.x == 0 and self.direction.y == 0:
             self.status = self.status.split('_')[0] + '_idle'
-        
+
         if self.attacking:
             self.status = self.status.split('_')[0] + '_attack'
 
