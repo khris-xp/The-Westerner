@@ -36,6 +36,7 @@ class Game:
         self.clock = pygame.time.Clock()
         # groups
         self.all_sprites = AllSprites()
+        self.obstacles = pygame.sprite.Group()
 
         self.setup()
 
@@ -44,16 +45,16 @@ class Game:
 
         # tiles
         for x, y, surf in tmx_map.get_layer_by_name('Fence').tiles():
-            Sprite((x * 64, y * 64), surf, self.all_sprites)
+            Sprite((x * 64, y * 64), surf, [self.all_sprites , self.obstacles])
 
            # objects
         for obj in tmx_map.get_layer_by_name('Objects'):
-            Sprite((obj.x, obj.y), obj.image, self.all_sprites)
+            Sprite((obj.x, obj.y), obj.image, [self.all_sprites , self.obstacles])
 
         for obj in tmx_map.get_layer_by_name('Entities'):
             if obj.name == 'Player':
                 self.player = Player(
-                    (obj.x, obj.y), self.all_sprites, PATHS['player'], None)
+                    (obj.x, obj.y), self.all_sprites, PATHS['player'], self.obstacles)
 
     def run(self):
         while True:
