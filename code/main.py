@@ -4,7 +4,7 @@ import sys
 from settings import *
 from player import Player
 from pytmx.util_pygame import load_pygame
-from sprite import Sprite
+from sprite import Sprite, Bullet
 
 
 class AllSprites(pygame.sprite.Group):
@@ -34,27 +34,42 @@ class Game:
             (WINDOW_WIDTH, WINDOW_HEIGHT))
         pygame.display.set_caption('The Westerner')
         self.clock = pygame.time.Clock()
+        self.bullets_surf = pygame.image.load(
+            '../graphics/other/particle.png').convert_alpha()
+
         # groups
         self.all_sprites = AllSprites()
         self.obstacles = pygame.sprite.Group()
 
+        # Bullet
+        self.bullets = pygame.sprite.Group()
+
         self.setup()
+
+    def create_bullet(self, pos, direction):
+        Bullet(pos, direction, self.bullets_surf,
+               [self.all_sprites, self.bullets])
 
     def setup(self):
         tmx_map = load_pygame('../data/map.tmx')
 
         # tiles
         for x, y, surf in tmx_map.get_layer_by_name('Fence').tiles():
-            Sprite((x * 64, y * 64), surf, [self.all_sprites , self.obstacles])
+            Sprite((x * 64, y * 64), surf, [self.all_sprites, self.obstacles])
 
            # objects
         for obj in tmx_map.get_layer_by_name('Objects'):
-            Sprite((obj.x, obj.y), obj.image, [self.all_sprites , self.obstacles])
+            Sprite((obj.x, obj.y), obj.image, [
+                   self.all_sprites, self.obstacles])
 
         for obj in tmx_map.get_layer_by_name('Entities'):
             if obj.name == 'Player':
                 self.player = Player(
-                    (obj.x, obj.y), self.all_sprites, PATHS['player'], self.obstacles)
+                    pos=(obj.x, obj.y),
+                    groups=self.all_sprites,
+                    path=PATHS['player'],
+                    collision_sprites=self.obstacles,
+                    create_bullet=self.create_bullet)
 
     def run(self):
         while True:
