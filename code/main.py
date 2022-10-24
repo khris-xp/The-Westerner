@@ -77,7 +77,7 @@ class Game:
                     groups=self.all_sprites,
                     path=PATHS['coffin'],
                     collision_sprites=self.obstacles,
-                    player = self.player
+                    player=self.player
                 )
 
             if obj.name == 'Cactus':
@@ -86,7 +86,7 @@ class Game:
                     groups=self.all_sprites,
                     path=PATHS['cactus'],
                     collision_sprites=self.obstacles,
-                    player = self.player
+                    player=self.player
                 )
 
     def run(self):
