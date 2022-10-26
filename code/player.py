@@ -78,3 +78,5 @@ class Player(Entity):
         self.move(dt)
         self.animate(dt)
         self.get_status()
+
+        self.hitted_timer()

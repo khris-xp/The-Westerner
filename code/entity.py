@@ -27,6 +27,23 @@ class Entity(pygame.sprite.Sprite):
         # Attack
         self.attacking = False
 
+        # Health
+        self.health = 3
+        self.hitted = True
+        self.hit_time = None
+
+    def damage(self):
+        if self.hitted:
+            self.health -= 1
+            self.hitted = False
+            self.hit_time = pygame.time.get_ticks()
+
+    def hitted_timer(self):
+        if not self.hitted:
+            current_time = pygame.time.get_ticks()
+            if current_time - self.hit_time > 400:
+                self.hitted = True    
+
     def import_assets(self, path):
         self.animations = {}
 
