@@ -1,4 +1,4 @@
-from locale import currency
+import sys
 import pygame
 from pygame.math import Vector2 as vector
 from os import walk
@@ -73,6 +73,11 @@ class Player(Entity):
 
         self.image = current_animation[int(self.frame_index)]
 
+    def check_death(self):
+        if self.health <= 0:
+            pygame.quit()
+            sys.exit()
+
     def update(self, dt):
         self.input()
         self.move(dt)
@@ -80,3 +85,4 @@ class Player(Entity):
         self.get_status()
 
         self.hitted_timer()
+        self.check_death()

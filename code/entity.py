@@ -21,7 +21,7 @@ class Entity(pygame.sprite.Sprite):
 
         # Collisions
         self.hitbox = self.rect.inflate(-self.rect.width *
-                                        0.4, -self.rect.height / 2)
+                                        0.5, -self.rect.height / 2)
         self.collision_sprites = collision_sprites
 
         # Attack
@@ -38,11 +38,15 @@ class Entity(pygame.sprite.Sprite):
             self.hitted = False
             self.hit_time = pygame.time.get_ticks()
 
+    def check_death(self):
+        if self.health <= 0:
+            self.kill()
+
     def hitted_timer(self):
         if not self.hitted:
             current_time = pygame.time.get_ticks()
             if current_time - self.hit_time > 400:
-                self.hitted = True    
+                self.hitted = True
 
     def import_assets(self, path):
         self.animations = {}
@@ -78,7 +82,7 @@ class Entity(pygame.sprite.Sprite):
         for sprite in self.collision_sprites.sprites():
             if sprite.hitbox.colliderect(self.hitbox):
                 if direction == 'horizontal':  # horizontal
-                    if self.direction.x > 0:  # moving to the right
+                    if self.direction.x > 0:
                         self.hitbox.right = sprite.hitbox.left
                     if self.direction.x < 0:
                         self.hitbox.left = sprite.hitbox.right
