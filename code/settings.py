@@ -1,4 +1,4 @@
-WINDOW_WIDTH, WINDOW_HEIGHT = 1280, 720
+WINDOW_WIDTH, WINDOW_HEIGHT = 1000, 620
 
 PATHS = {
     'player': '../graphics/player',

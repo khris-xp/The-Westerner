@@ -5,7 +5,6 @@ from os import walk
 
 from entity import Entity
 
-
 class Player(Entity):
     def __init__(self, pos, groups, path, collision_sprites, create_bullet):
         super().__init__(pos, groups, path, collision_sprites)

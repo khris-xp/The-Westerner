@@ -19,9 +19,12 @@ class Entity(pygame.sprite.Sprite):
         self.direction = vector()
         self.speed = 200
 
+        # Score Player
+
+
         # Collisions
         self.hitbox = self.rect.inflate(-self.rect.width *
-                                        0.5, -self.rect.height / 2)
+                                        0.4, -self.rect.height / 2)
         self.collision_sprites = collision_sprites
         self.mask = pygame.mask.from_surface(self.image)
 
@@ -38,7 +41,7 @@ class Entity(pygame.sprite.Sprite):
             if self.wave_value():
                 mask = pygame.mask.from_surface(self.image)
                 white_surf = mask.to_surface()
-                white_surf.set_colorkey((0,0,0))
+                white_surf.set_colorkey((0, 0, 0))
                 self.image = white_surf
 
     def wave_value(self):
@@ -52,12 +55,12 @@ class Entity(pygame.sprite.Sprite):
         if self.hitted:
             self.health -= 1
             self.hitted = False
-            self.hit_time = pygame.time.get_ticks() # Number in the millisecond
+            self.hit_time = pygame.time.get_ticks()  # Number in the millisecond
 
     def check_death(self):
         if self.health <= 0:
             self.kill()
-
+           
     def hitted_timer(self):
         if not self.hitted:
             current_time = pygame.time.get_ticks()

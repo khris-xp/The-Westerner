@@ -7,6 +7,7 @@ from pytmx.util_pygame import load_pygame
 from sprite import Sprite, Bullet
 from monster import Cactus, Coffin
 
+SCORE = 0
 
 class AllSprites(pygame.sprite.Group):
     def __init__(self):
@@ -46,26 +47,28 @@ class Game:
 
         self.setup()
 
+
+
     def create_bullet(self, pos, direction):
         Bullet(pos, direction, self.bullets_surf,
                [self.all_sprites, self.bullets])
 
     def bullet_collision(self):
 
-		# Bullet obstacle collision
+        # Bullet obstacle collision
         for obstacle in self.obstacles.sprites():
             pygame.sprite.spritecollide(obstacle, self.bullets, True)
 
-		# Bullet monster collision
+            # Bullet monster collision
         for bullet in self.bullets.sprites():
-            sprites = pygame.sprite.spritecollide(bullet,self.monsters,False)
-            
+            sprites = pygame.sprite.spritecollide(bullet, self.monsters, False)
+
             if sprites:
                 bullet.kill()
                 for sprite in sprites:
                     sprite.damage()
 
-		# player bullet collision
+                # player bullet collision
         if pygame.sprite.spritecollide(self.player, self.bullets, True):
             self.player.damage()
 
@@ -92,21 +95,38 @@ class Game:
             if obj.name == 'Coffin':
                 Coffin(
                     pos=(obj.x, obj.y),
-                    groups= [self.all_sprites, self.monsters],
+                    groups=[self.all_sprites, self.monsters],
                     path=PATHS['coffin'],
                     collision_sprites=self.obstacles,
                     player=self.player
                 )
-
             if obj.name == 'Cactus':
                 Cactus(
                     pos=(obj.x, obj.y),
-                    groups= [self.all_sprites, self.monsters],
+                    groups=[self.all_sprites, self.monsters],
                     path=PATHS['cactus'],
                     collision_sprites=self.obstacles,
                     player=self.player,
                     create_bullet=self.create_bullet
                 )
+
+    def display_score(self):
+        
+        global SCORE
+
+        self.font = pygame.font.Font('../font/subatomic.ttf', 50)
+        score_text = f'Score: {pygame.time.get_ticks() // 4000}'
+        text_surf = self.font.render(score_text, True, (255, 255, 255))
+        text_rect = text_surf.get_rect(midbottom=(
+            WINDOW_WIDTH / 2, WINDOW_HEIGHT - 80))
+        self.display_surface.blit(text_surf, text_rect)
+        pygame.draw.rect(
+            self.display_surface,
+            (255, 255, 255),
+            text_rect.inflate(30, 30),
+            width=8,
+            border_radius=5
+        )
 
     def run(self):
         while True:
@@ -125,7 +145,12 @@ class Game:
             self.display_surface.fill('black')
             self.all_sprites.customize_draw(self.player)
 
+            # Score
+            self.display_score()
+            print(SCORE)
+
             pygame.display.update()
+            
 
 
 if __name__ == '__main__':

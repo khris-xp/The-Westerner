@@ -2,7 +2,6 @@ import pygame
 from entity import Entity
 from pygame.math import Vector2 as vector
 
-
 class Monster:
     def get_player_distance_direction(self):
         enemy_pos = vector(self.rect.center)
