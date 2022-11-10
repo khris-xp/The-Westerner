@@ -19,9 +19,6 @@ class Entity(pygame.sprite.Sprite):
         self.direction = vector()
         self.speed = 200
 
-        # Score Player
-
-
         # Collisions
         self.hitbox = self.rect.inflate(-self.rect.width *
                                         0.4, -self.rect.height / 2)
