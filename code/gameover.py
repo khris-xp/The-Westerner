@@ -15,7 +15,7 @@ def gameOver(screen, clock, score):
     font = pygame.font.Font('../font/subatomic.ttf', 20)
     user_ip = ''
     text_box = pygame.Rect(
-        (WINDOW_WIDTH/2 - 350/2, WINDOW_HEIGHT/2 - 20), (350, 50))
+        (WINDOW_WIDTH/2 - 350/2, WINDOW_HEIGHT/2 + 60), (350, 50))
     active = False
     while True:
 
@@ -47,7 +47,7 @@ def gameOver(screen, clock, score):
                         if surf.get_width() > text_box.w - 20:
                             user_ip = user_ip[:-1]
 
-        background_image = pygame.image.load('../graphics/other/bg1.png')
+        background_image = pygame.image.load('../graphics/other/Background.png')
         screen.blit(background_image, (0, 0))
         draw_text('GAMEOVER', ('#F7EDDC'), 100, screen,
                   (WINDOW_WIDTH / 2 + 3, 140 + 3))
@@ -55,9 +55,9 @@ def gameOver(screen, clock, score):
                   screen, (WINDOW_WIDTH / 2, 140))
 
         draw_text(f'score : {score}', ('#996633'), 50,
-                  screen, (WINDOW_WIDTH/2 + 3, 195 + 3))
+                  screen, (WINDOW_WIDTH/2 + 3, 195 + 33))
         draw_text(f'score : {score}', ('#F7EDDC'),
-                  50, screen, (WINDOW_WIDTH/2, 195))
+                  50, screen, (WINDOW_WIDTH/2, 195 + 30))
 
         draw_text('TYPE YOUR NAME', ('#996633'), 50,
                   screen, (WINDOW_WIDTH/2 + 3, 300 + 3))

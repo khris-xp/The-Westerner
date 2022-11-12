@@ -7,6 +7,7 @@ from pytmx.util_pygame import load_pygame
 from sprite import Sprite, Bullet
 from monster import Cactus, Coffin
 from gameover import gameOver
+from sky import Sky
 
 
 class Player(Entity):
@@ -101,6 +102,7 @@ class AllSprites(pygame.sprite.Group):
         super().__init__()
         self.offset = vector()
         self.display_surface = pygame.display.get_surface()
+
         self.bg = pygame.image.load('../graphics/other/bg.png').convert()
 
     def customize_draw(self, player):
@@ -135,6 +137,9 @@ class Gamerun():
 
         # Death
         self.death = 0
+
+        # Sky
+        self.sky = Sky()
 
         self.setup()
 
@@ -239,7 +244,6 @@ class Gamerun():
             self.bullet_collision()
 
             # draw groups
-            self.display_surface.fill('black')
             self.all_sprites.customize_draw(self.player)
 
             # Score
@@ -248,5 +252,8 @@ class Gamerun():
             self.score_update()
 
             self.check_gameOver()
+
+            # Day time
+            self.sky.display(dt)
 
             pygame.display.update()

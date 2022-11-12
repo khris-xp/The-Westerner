@@ -64,7 +64,7 @@ def menu():
         show = 0
         prev_player_score = 0
         new_player_score = 0
-        background_image = pygame.image.load('../graphics/other/bg1.png')
+        background_image = pygame.image.load('../graphics/other/Background.png')
         screen.blit(background_image, (0, 0))
 
         draw_text('The Westerner', ('#61452C'), 90, screen,
@@ -106,7 +106,7 @@ def game():
 
 def rank():
     while True:
-        background_image = pygame.image.load('../graphics/other/bg1.png')
+        background_image = pygame.image.load('../graphics/other/Background.png')
         screen.blit(background_image, (0, 0))
 
         draw_text('RANK', ('#61452C'), 100, screen,
