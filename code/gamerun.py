@@ -19,7 +19,7 @@ class Player(Entity):
 
         self.screen = screen
 
-        self.health = 15
+        self.health = 10
 
         self.death = 0
 
@@ -147,7 +147,7 @@ class Gamerun():
         # Health
         self.life = pygame.Surface((20, 20))
         self.life.fill('#bb4343')
-        self.life_bg = pygame.Surface((300, 20))
+        self.life_bg = pygame.Surface((200, 20))
         self.life_bg.fill('#696868')
 
         self.setup()

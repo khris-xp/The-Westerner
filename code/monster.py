@@ -7,6 +7,7 @@ class Monster:
 
     def __init__(self):
         super().__init__()
+        self.enemy_count = 14
         self.score = 0
 
     def get_player_distance_direction(self):

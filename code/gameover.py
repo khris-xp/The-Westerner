@@ -10,7 +10,6 @@ def draw_text(text, color, size, screen, pos):
     textrect = textobj.get_rect(center=pos)
     screen.blit(textobj, textrect)
 
-
 def gameOver(screen, clock, score):
     font = pygame.font.Font('../font/subatomic.ttf', 20)
     user_ip = ''
