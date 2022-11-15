@@ -19,6 +19,8 @@ class Player(Entity):
 
         self.screen = screen
 
+        self.health = 5
+
         self.death = 0
 
     def get_status(self):

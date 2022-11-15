@@ -29,7 +29,7 @@ class Entity(pygame.sprite.Sprite):
         self.attacking = False
 
         # Health
-        self.health = 1
+        self.health = 3
         self.hitted = True
         self.hit_time = None
 

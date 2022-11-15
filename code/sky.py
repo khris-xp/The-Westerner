@@ -12,7 +12,7 @@ class Sky:
     def display(self, dt):
         for index, value in enumerate(self.end_color):
             if self.start_color[index] > value:
-                self.start_color[index] -= 1 * (dt * 15)
+                self.start_color[index] -= 1 * (dt * 5)
 
         self.full_surf.fill(self.start_color)
         self.display_surface.blit(
