@@ -2,7 +2,13 @@ import pygame
 from entity import Entity
 from pygame.math import Vector2 as vector
 
+
 class Monster:
+
+    def __init__(self):
+        super().__init__()
+        self.score = 0
+
     def get_player_distance_direction(self):
         enemy_pos = vector(self.rect.center)
         player_pos = vector(self.player.rect.center)
@@ -37,6 +43,7 @@ class Monster:
             self.status = self.status.split('_')[0]
         else:
             self.direction = vector()
+
 
 class Coffin(Entity, Monster):
     def __init__(self, pos, groups, path, collision_sprites, player):
@@ -91,6 +98,7 @@ class Coffin(Entity, Monster):
         self.check_death()
         self.hitted_timer()
 
+
 class Cactus(Entity, Monster):
     def __init__(self, pos, groups, path, collision_sprites, player, create_bullet):
         super().__init__(pos, groups, path, collision_sprites)
@@ -125,7 +133,7 @@ class Cactus(Entity, Monster):
         if int(self.frame_index) == 6 and self.attacking and not self.bullet_shot:
             direction = self.get_player_distance_direction()[1]
             pos = self.rect.center + direction * 150
-            self.create_bullet(pos , direction)
+            self.create_bullet(pos, direction)
             self.bullet_shot = True
 
         self.frame_index += 7 * dt
@@ -141,7 +149,7 @@ class Cactus(Entity, Monster):
         self.face_player()
         self.walk_to_player()
         self.attack()
-        
+
         self.move(dt)
         self.animate(dt)
         self.blink()

@@ -1,14 +1,9 @@
 player1, 1
-player2, 2
-player3, 1
-player4, 1
-player5, 2
-khris, 6
-Hello, 7
-khris, 3
-Pakbung, 10
-, 8
-, 2
-Khris, 2
-, 1
-, 1
+player1, 1
+player1, 1
+player1, 1
+player1, 1
+Khris, 12
+Profun kuy, 12
+rainbowi9, 999999
+Khris-xp, 117

@@ -19,7 +19,7 @@ class Player(Entity):
 
         self.screen = screen
 
-        self.health = 5
+        self.health = 15
 
         self.death = 0
 
@@ -136,6 +136,7 @@ class Gamerun():
 
         # Score
         self.score = 0
+        self.score_delay = 200
 
         # Death
         self.death = 0
@@ -143,11 +144,20 @@ class Gamerun():
         # Sky
         self.sky = Sky()
 
+        # Health
+        self.life = pygame.Surface((20, 20))
+        self.life.fill('#bb4343')
+        self.life_bg = pygame.Surface((300, 20))
+        self.life_bg.fill('#696868')
+
         self.setup()
 
     def score_update(self):
         # Score
-        self.score = pygame.time.get_ticks() // 7000
+        self.score_delay -= 1
+        if(self.score_delay == 0):
+            self.score += 1
+            self.score_delay = 200
 
     def check_gameOver(self):
         self.death = self.player.death
@@ -232,6 +242,14 @@ class Gamerun():
             border_radius=5
         )
 
+    def display_hp(self):
+
+        self.display_surface.blit(
+            self.life_bg, (50, 50))
+        for each_life in range(self.player.health):
+            x = 50 + (each_life * (self.life.get_size()[0]))
+            self.display_surface.blit(self.life, (x, 50))
+
     def run(self):
         while True:
             # event loop
@@ -251,11 +269,14 @@ class Gamerun():
             # Score
             self.display_score()
 
+            # Hp
+            self.display_hp()
+
             self.score_update()
 
             self.check_gameOver()
 
             # Day time
-            self.sky.display(dt)
+            self.sky.display()
 
             pygame.display.update()
