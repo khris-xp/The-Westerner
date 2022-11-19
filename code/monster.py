@@ -1,14 +1,19 @@
 import pygame
 from entity import Entity
 from pygame.math import Vector2 as vector
+from settings import *
+
+SCORE = 0
 
 
 class Monster:
 
     def __init__(self):
         super().__init__()
-        self.enemy_count = 14
-        self.score = 0
+
+        self.score = SCORE
+
+        self.health = 3
 
     def get_player_distance_direction(self):
         enemy_pos = vector(self.rect.center)
@@ -45,6 +50,12 @@ class Monster:
         else:
             self.direction = vector()
 
+    def check_death(self):
+        global SCORE
+        if self.health <= 0:
+            self.kill()
+            SCORE += 1
+
 
 class Coffin(Entity, Monster):
     def __init__(self, pos, groups, path, collision_sprites, player):
@@ -52,6 +63,8 @@ class Coffin(Entity, Monster):
 
         # Overwrites
         self.speed = 150
+
+        self.score = SCORE
 
         # Player Interaction
         self.player = player
@@ -99,6 +112,9 @@ class Coffin(Entity, Monster):
         self.check_death()
         self.hitted_timer()
 
+        self.score = SCORE
+        print(SCORE)
+
 
 class Cactus(Entity, Monster):
     def __init__(self, pos, groups, path, collision_sprites, player, create_bullet):
@@ -106,6 +122,8 @@ class Cactus(Entity, Monster):
 
         # Overwrites
         self.speed = 90
+
+        self.score = SCORE
 
         # Player Interaction
         self.player = player
@@ -157,3 +175,6 @@ class Cactus(Entity, Monster):
 
         self.check_death()
         self.hitted_timer()
+
+        self.score = SCORE
+        print(SCORE)

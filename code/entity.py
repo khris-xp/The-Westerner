@@ -28,6 +28,8 @@ class Entity(pygame.sprite.Sprite):
         # Attack
         self.attacking = False
 
+        self.damage_sound = pygame.mixer.Sound('../sound/hit.mp3')
+
         # Health
         self.health = 3
         self.hitted = True
@@ -50,13 +52,10 @@ class Entity(pygame.sprite.Sprite):
 
     def damage(self):
         if self.hitted:
+            self.damage_sound.play()
             self.health -= 1
             self.hitted = False
             self.hit_time = pygame.time.get_ticks()  # Number in the millisecond
-
-    def check_death(self):
-        if self.health <= 0:
-            self.kill()
            
     def hitted_timer(self):
         if not self.hitted:

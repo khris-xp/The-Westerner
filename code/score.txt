@@ -1,9 +1,6 @@
-player1, 1
-player1, 1
-player1, 1
-player1, 1
-player1, 1
-Khris, 12
-Profun kuy, 12
-rainbowi9, 999999
-Khris-xp, 117
+player1, 0
+player2, 0
+player3, 0
+player4, 0
+player5, 0
+khris, 11

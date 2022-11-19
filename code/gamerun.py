@@ -5,9 +5,10 @@ from settings import *
 from entity import Entity
 from pytmx.util_pygame import load_pygame
 from sprite import Sprite, Bullet
-from monster import Cactus, Coffin
+from monster import Cactus, Coffin, SCORE
 from gameover import gameOver
 from sky import Sky
+from gameWin import gameWin
 
 
 class Player(Entity):
@@ -134,10 +135,6 @@ class Gamerun():
         self.bullets = pygame.sprite.Group()
         self.monsters = pygame.sprite.Group()
 
-        # Score
-        self.score = 0
-        self.score_delay = 200
-
         # Death
         self.death = 0
 
@@ -149,24 +146,24 @@ class Gamerun():
         self.life.fill('#bb4343')
         self.life_bg = pygame.Surface((200, 20))
         self.life_bg.fill('#696868')
+        self.bullet_sound = pygame.mixer.Sound('../sound/bullet.wav')
 
         self.setup()
-
-    def score_update(self):
-        # Score
-        self.score_delay -= 1
-        if(self.score_delay == 0):
-            self.score += 1
-            self.score_delay = 200
 
     def check_gameOver(self):
         self.death = self.player.death
         if (self.death == 1):
-            gameOver(self.display_surface, self.clock, self.score)
+            gameOver(self.display_surface, self.clock, self.coffin.score)
+
+    def check_gameWin(self):
+        if(self.coffin.score == 14):
+            gameWin(self.display_surface, self.clock, self.coffin.score)
+            
 
     def create_bullet(self, pos, direction):
         Bullet(pos, direction, self.bullets_surf,
                [self.all_sprites, self.bullets])
+        self.bullet_sound.play()
 
     def bullet_collision(self):
 
@@ -209,7 +206,7 @@ class Gamerun():
                     create_bullet=self.create_bullet,
                     screen=self.display_surface)
             if obj.name == 'Coffin':
-                Coffin(
+                self.coffin = Coffin(
                     pos=(obj.x, obj.y),
                     groups=[self.all_sprites, self.monsters],
                     path=PATHS['coffin'],
@@ -217,30 +214,14 @@ class Gamerun():
                     player=self.player
                 )
             if obj.name == 'Cactus':
-                Cactus(
+                self.cactus = Cactus(
                     pos=(obj.x, obj.y),
                     groups=[self.all_sprites, self.monsters],
                     path=PATHS['cactus'],
                     collision_sprites=self.obstacles,
                     player=self.player,
-                    create_bullet=self.create_bullet
+                    create_bullet=self.create_bullet,
                 )
-
-    def display_score(self):
-
-        self.font = pygame.font.Font('../font/subatomic.ttf', 50)
-        score_text = f'Score: {self.score}'
-        text_surf = self.font.render(score_text, True, (255, 255, 255))
-        text_rect = text_surf.get_rect(midbottom=(
-            WINDOW_WIDTH / 2, WINDOW_HEIGHT - 80))
-        self.display_surface.blit(text_surf, text_rect)
-        pygame.draw.rect(
-            self.display_surface,
-            (255, 255, 255),
-            text_rect.inflate(30, 30),
-            width=8,
-            border_radius=5
-        )
 
     def display_hp(self):
 
@@ -249,6 +230,22 @@ class Gamerun():
         for each_life in range(self.player.health):
             x = 50 + (each_life * (self.life.get_size()[0]))
             self.display_surface.blit(self.life, (x, 50))
+
+    def display_score(self):
+
+        self.font = pygame.font.Font('../font/subatomic.ttf', 50)
+        score_text = f'Score: {self.coffin.score}'
+        text_surf = self.font.render(score_text, True, (255, 255, 255))
+        text_rect = text_surf.get_rect(midbottom=(
+            WINDOW_WIDTH / 2, WINDOW_HEIGHT - 80))
+        screen.blit(text_surf, text_rect)
+        pygame.draw.rect(
+            screen,
+            (255, 255, 255),
+            text_rect.inflate(30, 30),
+            width=8,
+            border_radius=5
+        )
 
     def run(self):
         while True:
@@ -266,15 +263,13 @@ class Gamerun():
             # draw groups
             self.all_sprites.customize_draw(self.player)
 
-            # Score
-            self.display_score()
-
             # Hp
             self.display_hp()
-
-            self.score_update()
+            
+            self.display_score()
 
             self.check_gameOver()
+            self.check_gameWin()
 
             # Day time
             self.sky.display()

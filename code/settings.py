@@ -1,3 +1,6 @@
+import pygame,sys
+
+
 WINDOW_WIDTH, WINDOW_HEIGHT = 1000, 620
 
 PATHS = {
@@ -5,3 +8,5 @@ PATHS = {
     'coffin': '../graphics/monster/coffin',
     'cactus': '../graphics/monster/cactus'
 }
+
+screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))

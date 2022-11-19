@@ -1,14 +1,17 @@
 import pygame
 import sys
 from gamerun import Gamerun
+from settings import *
 
 pygame.init()
-screen_width = 1000
-screen_height = 620
-screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('The Westerner')
 clock = pygame.time.Clock()
 gamerun = Gamerun(screen,clock)
+bg_music = pygame.mixer.Sound('../sound/main.mp3')
+bg_music.play(loops=-1)
+
+screen_width = WINDOW_WIDTH
+screen_height = WINDOW_HEIGHT
 
 def ranking():
     global scores, rankscores, show
@@ -26,7 +29,7 @@ def ranking():
                 rankscores.insert(num,scores[num])
             file.flush()
             show = 1
-
+  
 
 def display_rank():
     ranking()
