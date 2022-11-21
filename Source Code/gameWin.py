@@ -48,23 +48,23 @@ def gameWin(screen, clock, score):
 
         background_image = pygame.image.load('../Infographic/graphics/other/Background.png')
         screen.blit(background_image, (0, 0))
-        draw_text('GAMEWIN', ('#F7EDDC'), 100, screen,
+        draw_text('YOU WIN !!!', ('#FFF4EB'), 100, screen,
                   (WINDOW_WIDTH / 2 + 3, 140 + 3))
-        draw_text('GAMEWIN', ('#FF4133'), 100,
+        draw_text('YOU WIN !!!', ('#367E18'), 100,
                   screen, (WINDOW_WIDTH / 2, 140))
 
-        draw_text(f'score : {score}', ('#996633'), 50,
+        draw_text(f'score : {score}', ('#000000'), 50,
                   screen, (WINDOW_WIDTH/2 + 3, 195 + 33))
-        draw_text(f'score : {score}', ('#F7EDDC'),
+        draw_text(f'score : {score}', ('#FFF4EB'),
                   50, screen, (WINDOW_WIDTH/2, 195 + 30))
 
-        draw_text('TYPE YOUR NAME', ('#996633'), 50,
+        draw_text('TYPE YOUR NAME', ('#000000'), 50,
                   screen, (WINDOW_WIDTH/2 + 3, 300 + 3))
-        draw_text('TYPE YOUR NAME', ('#F7EDDC'),
+        draw_text('TYPE YOUR NAME', ('#FFF4EB'),
                   50, screen, (WINDOW_WIDTH/2, 300))
 
         menu_button = pygame.Rect((820, 550), (150, 50))
-        pygame.draw.rect(screen, ('#61452C'), menu_button)
+        pygame.draw.rect(screen, ('#DC3535'), menu_button)
         draw_text('QUIT', ('#FFF4EB'), 50, screen, (900, 580))
 
         if active:

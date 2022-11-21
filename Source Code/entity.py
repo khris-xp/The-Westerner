@@ -2,6 +2,8 @@ import pygame
 from pygame.math import Vector2 as vector
 from os import walk
 from math import sin
+from random import randint
+
 
 class Entity(pygame.sprite.Sprite):
     def __init__(self, pos, groups, path, collision_sprites):
@@ -35,6 +37,9 @@ class Entity(pygame.sprite.Sprite):
         self.hitted = True
         self.hit_time = None
 
+        # Critical
+        self.critical = randint(0, 10)
+
     def blink(self):
         if not self.hitted:
             if self.wave_value():
@@ -51,12 +56,18 @@ class Entity(pygame.sprite.Sprite):
             return False
 
     def damage(self):
+        self.critical = randint(0, 10)
+
         if self.hitted:
             self.damage_sound.play()
             self.health -= 1
+
+            if (self.critical > 9):
+                self.health -= 2
+
             self.hitted = False
             self.hit_time = pygame.time.get_ticks()  # Number in the millisecond
-           
+
     def hitted_timer(self):
         if not self.hitted:
             current_time = pygame.time.get_ticks()

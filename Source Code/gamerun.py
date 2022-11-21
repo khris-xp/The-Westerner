@@ -5,7 +5,7 @@ from settings import *
 from entity import Entity
 from pytmx.util_pygame import load_pygame
 from sprite import Sprite, Bullet
-from monster import Cactus, Coffin, SCORE
+from monster import Cactus, Coffin
 from gameover import gameOver
 from sky import Sky
 from gameWin import gameWin
@@ -20,7 +20,7 @@ class Player(Entity):
 
         self.screen = screen
 
-        self.health = 10
+        self.health = 15
 
         self.death = 0
 
@@ -65,10 +65,14 @@ class Player(Entity):
                     case 'up': self.bullet_direction = vector(0, -1)
                     case 'down': self.bullet_direction = vector(0, 1)
 
+            if keys[pygame.K_ESCAPE]:
+                self.death = 1
+
+
     def animate(self, dt):
         current_animation = self.animations[self.status]
 
-        self.frame_index += 7 * dt
+        self.frame_index += 7 * (dt * 1.5)
 
         if int(self.frame_index) == 2 and self.attacking and not self.bullet_shot:
 
@@ -142,9 +146,9 @@ class Gamerun():
         self.sky = Sky()
 
         # Health
-        self.life = pygame.Surface((20, 20))
+        self.life = pygame.Surface((30, 22))
         self.life.fill('#bb4343')
-        self.life_bg = pygame.Surface((200, 20))
+        self.life_bg = pygame.Surface((450, 22))
         self.life_bg.fill('#696868')
         self.bullet_sound = pygame.mixer.Sound('../Infographic/sound/bullet.wav')
 
@@ -156,7 +160,7 @@ class Gamerun():
             gameOver(self.display_surface, self.clock, self.coffin.score)
 
     def check_gameWin(self):
-        if(self.coffin.score == 14):
+        if(self.coffin.score == 16):
             gameWin(self.display_surface, self.clock, self.coffin.score)
             
 
@@ -230,6 +234,7 @@ class Gamerun():
         for each_life in range(self.player.health):
             x = 50 + (each_life * (self.life.get_size()[0]))
             self.display_surface.blit(self.life, (x, 50))
+        print(self.player.health)
 
     def display_score(self):
 

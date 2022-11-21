@@ -1,6 +1,7 @@
 import pygame
 from settings import *
 import math
+from random import randint
 
 
 def signed(n):
@@ -19,6 +20,7 @@ class Sky:
         self.start_color = [255, 255, 255]
         self.default_color = [255, 255, 255]
         self.end_color = [37, 100, 188]
+        self.random_sky = randint(1, 5)
 
     def display(self):
 
@@ -30,11 +32,12 @@ class Sky:
         if (self.night == False):
             for i in range(3):
                 if self.start_color[i] > self.end_color[i]:
-                    self.start_color[i] -= 0.05
+                    self.start_color[i] -= (self.random_sky) / 100
+
         else:
             for i in range(3):
                 if self.start_color[i] < self.default_color[i]:
-                    self.start_color[i] += 0.05
+                    self.start_color[i] += (self.random_sky) / 100
 
         self.full_surf.fill(self.start_color)
         self.display_surface.blit(

@@ -18,13 +18,22 @@ class Bullet(pygame.sprite.Sprite):
         self.pos = pygame.math.Vector2(self.rect.center)
         self.direction = direction
         self.time = pygame.time.get_ticks()
-        self.speed = 400
+        self.speed = 300
 
     def check_time(self):
-        if((pygame.time.get_ticks() - self.time) / 1000 > 180):
-            self.speed  = 700
+        if ((pygame.time.get_ticks() - self.time) / 1000 > 180):
+            self.speed = 600
 
-    def update(self,dt):
+        if ((pygame.time.get_ticks() - self.time) / 1000 > 240):
+            self.speed = 800
+
+        if ((pygame.time.get_ticks() - self.time) / 1000 > 300):
+            self.speed = 1200
+
+        if ((pygame.time.get_ticks() - self.time) / 1000 > 360):
+            self.speed = 1600
+
+    def update(self, dt):
         self.pos += self.direction * self.speed * dt
-        self.rect.center = (round(self.pos.x) , round(self.pos.y))
+        self.rect.center = (round(self.pos.x), round(self.pos.y))
         self.check_time()

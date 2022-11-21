@@ -70,22 +70,22 @@ def menu():
         background_image = pygame.image.load('../Infographic/graphics/other/Background.png')
         screen.blit(background_image, (0, 0))
 
-        draw_text('The Westerner', ('#61452C'), 90, screen,
-                  (screen_width/2 + 43, screen_height/2 - 80 + 3))
+        draw_text('The Westerner', ('#000000'), 90, screen,
+                  (screen_width/2 + 3, screen_height/2 - 80 + 3))
         draw_text('The Westerner', ('#FFF4EB'), 90, screen,
-                  (screen_width/2 + 40, screen_height/2 - 80))
+                  (screen_width/2, screen_height/2 - 80))
 
-        draw_text('65010107 Khris Bharmmano', ('#61452C'), 30, screen,
-                  (screen_width/2 + 43, screen_height/2 + 23))
+        draw_text('65010107 Khris Bharmmano', ('#000000'), 30, screen,
+                  (screen_width/2 + 13, screen_height/2 + 23))
         draw_text('65010107 Khris Bharmmano', ('#FFF4EB'), 30, screen,
-                  (screen_width/2 + 40, screen_height/2 + 20))
+                  (screen_width/2 + 10, screen_height/2 + 20))
 
-        game_button = pygame.Rect((320, 450), (150, 50))
-        rank_button = pygame.Rect((610, 450), (150, 50))
-        pygame.draw.rect(screen, ('#61452C'), game_button)
-        pygame.draw.rect(screen, ('#61452C'), rank_button)
+        game_button = pygame.Rect((250, 440), (170, 70))
+        rank_button = pygame.Rect((600, 440), (170, 70))
+        pygame.draw.rect(screen, ('#367E18'), game_button)
+        pygame.draw.rect(screen, ('#F57328'), rank_button)
 
-        draw_text('PLAY', ('#FFF4EB'), 50, screen, (400, 473))
+        draw_text('PLAY', ('#FFF4EB'), 50, screen, (340, 473))
         draw_text('RANK', ('#FFF4EB'), 50, screen, (690, 473))
 
         for event in pygame.event.get():
